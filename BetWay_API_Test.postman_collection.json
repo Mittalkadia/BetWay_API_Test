@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "8e48e253-44fd-4f26-a42d-4156341de69a",
+		"name": "BetWay_API_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://v6.exchangerate-api.com/v6/1fc80820c72b0163bc9c7536/latest/USD",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"var keys = Object.keys(data.conversion_rates);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Count total number of currencies\", function () {\r",
+							"    console.log(\"Total currency count = \" + keys.length) \r",
+							"    pm.expect(keys.length).to.be.greaterThan(0);\r",
+							"});\r",
+							" \r",
+							"\r",
+							"pm.test('Verify GBP is present in conversion rates', function() {\r",
+							"  var isGBPPresent = \"false\"; \r",
+							"\r",
+							"  for(var i=0; i<keys.length; i++){\r",
+							"      if((keys[i]) == \"GBP\"){\r",
+							"          console.log(\"GBP is present at index = \" + i);\r",
+							"          pm.expect(keys[i]).eql('GBP');\r",
+							"          isGBPPresent = \"true\";\r",
+							"      }\r",
+							"  }\r",
+							"  if (isGBPPresent ==  \"false\"){\r",
+							"    pm.expect.fail(\"GBP IS NOT PRESENT\")\r",
+							"  }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://v6.exchangerate-api.com/v6/1fc80820c72b0163bc9c7536/latest/USD",
+					"protocol": "https",
+					"host": [
+						"v6",
+						"exchangerate-api",
+						"com"
+					],
+					"path": [
+						"v6",
+						"1fc80820c72b0163bc9c7536",
+						"latest",
+						"USD"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
